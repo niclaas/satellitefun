@@ -1,0 +1,15 @@
+tr {
+    cursor: pointer;
+}
+
+td.sat-healthy, td.sat-sick {
+    text-align: center;
+    color: #ffffff;
+}
+td.sat-sick {
+    background-color: rgb(200, 0, 0);
+}
+
+td.sat-healthy {
+    background-color: rgb(0, 200, 0);
+}

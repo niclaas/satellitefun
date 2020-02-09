@@ -1,0 +1,54 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-dark mb-3">
+        <div class="container">
+            <a routerLink="/satellites">
+                <h5 i18n="Site home title|The site header text that users click to navigate home@@homeHeaderLink">
+                    Satellite Fun</h5>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-lg-inline-flex flex-lg-row-reverse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span class="nav-link btn btn-link">{{nativeAuthService.emailAddress}}</span>
+                    </li>
+                    <li class="nav-item">
+                        <button (click)="logout()" class="nav-link btn btn-link">Logout</button>
+                    </li>
+                    <li ngbDropdown>
+                        <button class="btn btn-link nav-link" id="navLanguageDropDownMenuLink" ngbDropdownToggle>
+                            {{language}}
+                        </button>
+                        <div ngbDropdownMenu area-labelledby="navLanguageDropDownMenuLink">
+                            <a href="#" class="dropdown-item" (click)="navigateToAlternateLanguage()">{{alternateLanguage}}</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav flex-grow-1">
+                    <li ngbDropdown>
+                        <button class="btn btn-link nav-link" id="navSatellitesDropDownMenuLink" ngbDropdownToggle>
+                            Satellites
+                        </button>
+                        <div ngbDropdownMenu area-labelledby="navSatellitesDropDownMenuLink">
+                            <a class="dropdown-item" routerLink="/satellites"
+                                i18n="Nav to all satellites|Text for navigation link that takes user to all satellites view@@allSatellitesLink">
+                                All Satellites</a>
+                            <a class="dropdown-item" routerLink="/satellites/visible"
+                                i18n="Nav to visible satellites|Text for navigation link that takes user to visible satellites view@@visibleSatellitesLink">
+                                Visible Satellites</a>
+                            <a class="dropdown-item" routerLink="/satellites/map"
+                                i18n="Nav to satellites map|Text for navigation link that takes user to satellites map view@@satellitesMapLink">
+                                Map</a>
+                        </div>
+                    </li>
+                    <li *ngIf="nativeAuthService.canSeeSpyStuff()"><a class="nav-link" routerLink="/spy-stuff">Spy
+                            Stuff</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<router-outlet></router-outlet>

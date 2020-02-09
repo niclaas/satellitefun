@@ -1,0 +1,7 @@
+header > nav > .container > a:first-child {
+    color: #ffffff;
+    text-decoration: none;
+}
+header > nav > .container > a:first-child h5 {
+    margin: 0 3rem 0 0;
+}

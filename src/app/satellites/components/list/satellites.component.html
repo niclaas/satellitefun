@@ -1,0 +1,70 @@
+<div class="container">
+    
+    <h2 *ngIf="showAll()">All satellites</h2>
+
+    <h2 *ngIf="!showAll()">Visible satellites</h2>
+
+    <div *ngIf="!showAll()">
+        <hr />
+        <h5>Coordinates (lat/lng): [{{lat$ | async}}:{{lng$ | async}}]<br />
+            Height: {{height$ | async}}</h5>
+        <hr />
+    </div>
+
+    <form>
+
+        <div class="form-group form-inline">
+            Search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm" />
+            <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+        </div>
+
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" sortable="displayName" (sort)="onSort($event)">
+                        Name
+                    </th>
+                    <th scope="col">
+                        Constellation
+                    </th>
+                    <th scope="col">
+                        Health
+                    </th>
+                    <th scope="col" class="text-right">
+                        Latitude
+                    </th>
+                    <th scope="col" class="text-right">
+                        Longitude
+                    </th>
+                    <th scope="col" class="text-right">Height</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="open(satellite)" *ngFor="let satellite of satellites$ | async">
+                    <th scope="row">{{satellite.id}}</th>
+                    <td>{{satellite.displayName}}</td>
+                    <td>{{satellite.constellation}}</td>
+                    <td [ngClass]="(satellite.orbit.isHealthy)?'sat-healthy':'sat-sick'">
+                        {{(satellite.orbit.isHealthy)?'healthy':'sick'}}</td>
+                    <td class="text-right">{{satellite.path[0].trace.latitude | coordinateDirection: 'lat'}}</td>
+                    <td class="text-right">{{satellite.path[0].trace.longitude | coordinateDirection: 'lng'}}</td>
+                    <td class="text-right">{{satellite.path[0].trace.height}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize">
+            </ngb-pagination>
+
+            <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="20">20 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+            </select>
+        </div>
+
+    </form>
+
+</div>

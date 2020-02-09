@@ -1,0 +1,12 @@
+<div class="row mb-2" style="margin-top: -10px;">
+  <div class="col">
+    <div *ngFor="let constellation of getConstellationColoursCleaned(); index as i" class="legend-block" [style.background-color]="constellation">
+      {{getConstellationsCleaned()[i]}}
+    </div>
+  </div>
+  <div class="col text-right">
+    <button class="btn btn-primary mr-2" (click)="toggleVisible()">{{visibleOnly ? 'Show All' : 'Show only visible'}}</button>
+  </div>
+</div>
+
+<div #mapContainer id="map"></div>

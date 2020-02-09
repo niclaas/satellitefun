@@ -1,0 +1,84 @@
+<div class="modal-header" [class.sick-sat]="!satellite.orbit.isHealthy">
+    <h4 class="modal-title">Satellite details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-4">Name:</div>
+        <div class="col">{{satellite.displayName}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">Constellation:</div>
+        <div class="col">{{satellite.constellation}}</div>
+    </div>
+    <h5>Orbit</h5>
+    <div class="row" [class.sick-sat]="!satellite.orbit.isHealthy">
+        <div class="col-4">Health:</div>
+        <div class="col">{{(satellite.orbit.isHealthy)?'healthy':'sick'}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">Eccentricity:</div>
+        <div class="col">{{satellite.orbit.eccentricity}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">Delta Inclination:</div>
+        <div class="col">{{satellite.orbit.deltaInclination}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">Root of Semi Major Axis:</div>
+        <div class="col">{{satellite.orbit.rootOfSemiMajorAxis}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">A0:</div>
+        <div class="col">{{satellite.orbit.a0}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">A1:</div>
+        <div class="col">{{satellite.orbit.a1}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">Omega0:</div>
+        <div class="col">{{satellite.orbit.omega0}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">Omega:</div>
+        <div class="col">{{satellite.orbit.omega}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">M0:</div>
+        <div class="col">{{satellite.orbit.m0}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">Omega Dot:</div>
+        <div class="col">{{satellite.orbit.omegaDot}}</div>
+    </div>
+    <div class="row">
+        <div class="col-4">GPS Seconds:</div>
+        <div class="col">{{satellite.orbit.gpsSeconds}}</div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-4">GPS Week:</div>
+        <div class="col">{{satellite.orbit.gpsWeek}}</div>
+    </div>
+    <h5>Path</h5>
+    <div *ngFor="let pathLocation of satellite.path">
+        <h6>Position as at {{pathLocation.asAt}}</h6>
+        <div class="row">
+            <div class="col-4">Latitude:</div>
+            <div class="col">{{pathLocation.trace.latitude | coordinateDirection : 'lat'}}</div>
+        </div>
+        <div class="row">
+            <div class="col-4">Longitude:</div>
+            <div class="col">{{pathLocation.trace.longitude | coordinateDirection : 'lng'}}</div>
+        </div>
+        <div class="row">
+            <div class="col-4">Height:</div>
+            <div class="col">{{pathLocation.trace.height}}</div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

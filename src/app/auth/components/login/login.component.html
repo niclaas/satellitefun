@@ -1,0 +1,44 @@
+<form (ngSubmit)="auth()" #loginForm="ngForm">
+
+    <div class="card">
+        <div class="card-header">
+            <h4 i18n="Login page|Title with request to log in@@loginRequestHeader">
+                Please log in</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="email" i18n="Login page|Email box label@@loginEmailBoxLabel">Email</label>
+                <input type="text" class="form-control" id="email" appValidEmail="test" required
+                    [(ngModel)]="model.email" name="email" #email="ngModel" #spyEmail />
+                <div [hidden]="email.valid || email.pristine" class="alert alert-danger"
+                    i18n="Login page|Email validation error@@loginEmailValidationError">Email is not valid</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" i18n="Login page|Password box label@@loginPasswordBoxLabel">
+                    Password</label>
+                <input type="password" class="form-control" id="password" required [(ngModel)]="model.password"
+                    name="password" #password="ngModel" #spyPassword />
+                <div [hidden]="password.valid || password.pristine" class="alert alert-danger"
+                    i18n="Login page|Password validation error@@loginPasswordValidationError">Password is required</div>
+            </div>
+
+            <div [hidden]="!authenticationFailed" class="alert alert-danger"
+                i18n="Login page|Message to say user credentials could not be found@@loginCredentialsValidationError">
+                Could not find an account that matches the email address and password supplied.</div>
+
+        </div>
+        <div class="card-footer text-right">
+            <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid"
+                i18n="Login page|Title for native login button@@loginNativeLoginBtnTitle">Login</button>
+        </div>
+    </div>
+</form>
+
+<div class="google-btn-container">
+    <p><strong i18n="Login page|Word to give choice between two login mechanisms@@loginChoiceLabel">OR</strong></p>
+    <button class="btn btn-primary" (click)="signInWithGoogle()"
+        i18n="Login page|Title for Google login button@@loginGoogleLoginBtnTitle">Login with Google</button>
+</div>
+
+
